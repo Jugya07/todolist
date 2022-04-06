@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Puddles&family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+    <title>toDoList</title>
+    <style>
+        body{
+            background-color: antiquewhite;
+            font-family: 'Indie Flower', cursive;
+
+        }
+        #he1{
+            font-family: 'Rubik Wet Paint', cursive;
+        }
+        #he2{
+            font-family: 'Beau Rivage', cursive;
+            border: 2px solid black;
+            background-color: rgb(178, 239, 154);
+            display: block;
+        }
+        #eee:hover,#qqq:hover{
+            transform: scale(1,1.2);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <img src="icon1.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <a id="he1" class="navbar-brand" href="#">TO  DO  LIST :</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto"></ul>
+          <img id="qqq" src="j.png" width="30" height="30" class="d-inline-block align-top " alt="">
+          <img id="eee" src="k.png" width="30" height="30" class="d-inline-block align-top " alt="">
+        </div>
+      </nav>
+
+      <div class="container mt-5">
+      <div class="input-group mb-3">
+        <input id="myInput" type="text" class="form-control" placeholder="Enter your work" aria-label="Recipient's username" aria-describedby="button-addon2">
+        
+          <button id="add_btn" class="btn btn-outline-info" type="button" id="button-addon2" >Add</button>
+        
+      </div>
+      <ul class="list-group" id="licreate" >
+        <li class="list-group-item d-flex justify-content-between">
+            <h2 id="he2" class="flex-grow-1">Your works:-</h2> 
+        
+      </ul>
+    </div>
+    <script>
+        let addBtn=document.getElementById("add_btn")
+        addBtn.addEventListener('click',addwork)
+        
+        
+        function addwork(e){
+            if(addBtn.previousElementSibling.value==""){
+                alert("Complete the field!!")
+            }else{
+            let currentInput=addBtn.previousElementSibling.value
+            
+            const li=document.createElement('li')
+            let currentValue=currentInput
+            li.className="list-group-item d-flex justify-content-between"
+        
+
+            li.innerHTML=`<h4 class="flex-grow-1">${currentValue}</h4> 
+            <button type="button" class="btn btn-warning " style="margin-right: 3px;" onclick="editwork(this)">edit</button>
+            <button id="remwork" type="button" class="btn btn-danger" onclick="remwork(this)">remove</button>`
+            licreate.append(li)
+
+            addBtn.previousElementSibling.value=""
+        }}
+        var input = document.getElementById("myInput");
+        input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("add_btn").click();
+         }
+        });
+        
+        
+        function remwork(currElement){
+            currElement.parentElement.remove()
+
+        }
+        function editwork(currElement){
+            if(currElement.textContent=="Done"){
+                currElement.textContent="Edit"
+                let inputname=currElement.previousElementSibling.value
+                let edited1=document.createElement('h4')
+                edited1.className="flex-grow-1"
+                edited1.textContent=inputname
+                currElement.parentElement.replaceChild(edited1,currElement.previousElementSibling)
+
+            }else{
+            currElement.textContent="Done"
+            let inputname=currElement.previousElementSibling.textContent
+            let edited=document.createElement('input')
+            edited.type="text"
+            edited.placeholder="your work"
+            edited.className="form-control"
+            edited.value=inputname
+
+            currElement.parentElement.replaceChild(edited,currElement.previousElementSibling)
+        }
+    }
+    </script>
+</body>
+</html>
